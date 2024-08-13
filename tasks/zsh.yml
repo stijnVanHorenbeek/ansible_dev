@@ -10,20 +10,24 @@
         state: present
         update_cache: yes
       become: true
-    # - name: Ensure zsh is the default shell
-    #   user:
-    #     name: "{{ ansible_user }}"
-    #     shell: "/usr/bin/zsh"
-    #   become: true
+    - name: Ensure zsh is the default shell
+      user:
+        name: "{{ ansible_user }}"
+        shell: "/usr/bin/zsh"
+      become: true
     - name: Download Oh My Zsh installation script
       get_url:
         url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
         dest: /tmp/install_ohmyzsh.sh
 
     - name: Changing perm of zsh-install script, adding '+x'
-      file: dest=/tmp/install_ohmyzsh.sh mode=a+x
+      file: 
+        dest: /tmp/install_ohmyzsh.sh
+        mode: 'a+x'
 
-    - name: Run Oh My Zsh installation script
-      script:
-        cmd: /tmp/install_ohmyzsh.sh --unattended
-
+    - name: Run Oh My Zsh installation script as user
+      command: /tmp/install_ohmyzsh.sh --unattended
+      become: true
+      become_user: "{{ ansible_user }}"
+      environment:
+        ZSH: "/home/{{ ansible_user }}/.oh-my-zsh"
