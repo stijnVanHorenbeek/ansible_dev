@@ -2,13 +2,12 @@
   hosts: localhost
   become: yes
   vars:
-      ansible_user: stijn
+      user: stijn
   tasks:
     - name: Ensure Zsh with dependencies are installed
       apt:
         name: zsh
         state: present
-        update_cache: yes
       become: true
     - name: Ensure zsh is the default shell
       user:
@@ -28,6 +27,6 @@
     - name: Run Oh My Zsh installation script as user
       command: /tmp/install_ohmyzsh.sh --unattended && source ~/.zshrc
       become: true
-      become_user: "{{ ansible_user }}"
+      become_user: "{{ user }}"
       environment:
-        ZSH: "/home/{{ ansible_user }}/.oh-my-zsh"
+        ZSH: "/home/{{ user }}/.oh-my-zsh"
