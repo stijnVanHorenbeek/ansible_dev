@@ -26,7 +26,7 @@
         mode: 'a+x'
 
     - name: Run Oh My Zsh installation script as user
-      command: /tmp/install_ohmyzsh.sh --unattended
+      command: /tmp/install_ohmyzsh.sh --unattended && source ~/.zshrc
       become: true
       become_user: "{{ ansible_user }}"
       environment:
