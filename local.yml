@@ -14,4 +14,4 @@
         msg: do I get here?
 
 - name: Include Zsh setup
-  import_playbook: zsh.yml
+  import_playbook: tasks/zsh.yml
