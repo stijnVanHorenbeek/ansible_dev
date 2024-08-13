@@ -11,7 +11,7 @@
       become: true
     - name: Ensure zsh is the default shell
       user:
-        name: "{{ ansible_user }}"
+        name: "{{ user }}"
         shell: "/usr/bin/zsh"
       become: true
     - name: Download Oh My Zsh installation script
