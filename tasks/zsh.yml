@@ -14,7 +14,7 @@
       user:
         name: "{{ ansible_user }}"
         shell: "/usr/bin/zsh"
-      become: true
+      # become: true
     - name: Download Oh My Zsh installation script
       get_url:
         url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
@@ -24,6 +24,7 @@
       file: dest=/tmp/install_ohmyzsh.sh mode=a+x
 
     - name: Run Oh My Zsh installation script
+      become: false
       script:
         cmd: /tmp/install_ohmyzsh.sh --unattended
 
