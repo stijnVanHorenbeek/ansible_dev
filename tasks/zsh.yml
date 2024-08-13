@@ -1,34 +1,39 @@
 - name: Install and configure Zsh and Oh My Zsh
   hosts: localhost
   become: yes
-  tasks:
+
+  vars:
+    user: stijn
+    zsh_shell: /bin/zsh
+    oh_my_zsh_install_script: https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh
+    tasks:
     - name: Install Zsh
       apt:
         name: zsh
         state: present
 
-    - name: Set Zsh as the default shell for the ansible_user
+    - name: Set Zsh as the default shell for the user
       user:
-        name: ansible_user
-        shell: /bin/zsh
+        name: "{{ user }}"
+        shell: "{{ zsh_shell }}"
 
     - name: Install Oh My Zsh
       become: no
       shell: |
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+        sh -c "$(curl -fsSL {{ oh_my_zsh_install_script }})" "" --unattended
       args:
-        creates: /home/ansible_user/.oh-my-zsh
+        creates: "/home/{{ user }}/.oh-my-zsh"
 
     - name: Change default shell to Zsh
       shell: |
-        chsh -s $(which zsh) ansible_user
+        chsh -s {{ zsh_shell }} {{ my_user }}
       args:
         executable: /bin/bash
 
     - name: Ensure .zshrc is present
       copy:
-        src: /home/ansible_user/.oh-my-zsh/templates/zshrc.zsh-template
-        dest: /home/ansible_user/.zshrc
+        src: "/home/{{ user }}/.oh-my-zsh/templates/zshrc.zsh-template"
+        dest: "/home/{{ user }}/.zshrc"
         remote_src: yes
-        owner: ansible_user
-        group: ansible_user
+        owner: "{{ user }}"
+        group: "{{ user }}"
