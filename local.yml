@@ -10,8 +10,6 @@
   tasks:
     - name: Include packages
       include_tasks: tasks/packages.yml
-    - debug:
-        msg: do I get here?
 
 - name: Include Zsh setup
   import_playbook: tasks/zsh.yml
