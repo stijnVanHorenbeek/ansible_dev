@@ -1,25 +1,21 @@
 - name: Install and configure Zsh and Oh My Zsh
   hosts: localhost
   become: yes
-
   vars:
-    user: stijn
-    zsh_shell: /bin/zsh
-    oh_my_zsh_install_script: https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh
+    - zsh_dependencies: []
+      ansible_user: stijn
   tasks:
-    - name: Install Zsh
+    - name: Ensure Zsh with dependencies are installed
       apt:
-        name: zsh
+        name: "{{ ['zsh'] + zsh_dependencies }}"
         state: present
         update_cache: yes
       become: true
-
-    - name: Set Zsh as the default shell for the user
+    - name: Ensure zsh is the default shell
       user:
-        name: "{{ user }}"
-        shell: "{{ zsh_shell }}"
+        name: "{{ ansible_user }}"
+        shell: "/usr/bin/zsh"
       become: true
-
     - name: Download Oh My Zsh installation script
       get_url:
         url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
@@ -29,17 +25,3 @@
       command: sh /tmp/install_ohmyzsh.sh --unattended
       register: ohmyzsh_result
       failed_when: "'FAILED' in ohmyzsh_result.stderr"
-
-    - name: Change default shell to Zsh
-      shell: |
-        chsh -s {{ zsh_shell }} {{ user }}
-      args:
-        executable: /bin/bash
-
-    - name: Ensure .zshrc is present
-      copy:
-        src: "/home/{{ user }}/.oh-my-zsh/templates/zshrc.zsh-template"
-        dest: "/home/{{ user }}/.zshrc"
-        remote_src: yes
-        owner: "{{ user }}"
-        group: "{{ user }}"
