@@ -5,3 +5,4 @@
       - htop
       - tmux
       - mc
+      - build-essential
