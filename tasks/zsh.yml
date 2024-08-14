@@ -24,8 +24,14 @@
         dest: /tmp/install_ohmyzsh.sh
         mode: 'a+x'
 
+    - name: Oh My Zsh directory check
+      stat:
+        path: "{{ ansible_env.HOME }}/.oh-my-zsh"
+      register: ohmyzsh_dir
+
     - name: Run Oh My Zsh installation script as user
       command: /tmp/install_ohmyzsh.sh --unattended && source ~/.zshrc
+      when: not ohmyzsh_dir.stat.exists
       become: true
       become_user: "{{ user }}"
       environment:
