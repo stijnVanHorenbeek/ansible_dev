@@ -13,3 +13,5 @@
 
 - name: Include Zsh setup
   import_playbook: tasks/zsh.yml
+- name: Install Neovim
+  import_playbook: tasks/nvim.yml

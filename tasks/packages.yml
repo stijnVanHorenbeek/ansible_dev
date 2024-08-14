@@ -6,3 +6,9 @@
       - tmux
       - mc
       - build-essential
+      - dotnet-sdk-8.0
+      - aspnetcore-runtime-8
+      - ripgrep
+      - fzf
+      - xclip
+

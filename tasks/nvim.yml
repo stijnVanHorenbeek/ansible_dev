@@ -1,0 +1,34 @@
+- name: Install and configure Neovim
+  hosts: localhost
+  become: yes
+  vars:
+    user: stijn
+    neovim_url: "https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz"
+    tarbal_location: "/tmp/nvim-linux64.tar.gz"
+    install_dir: "/opt/nvim-linux64"
+
+  tasks:
+    - name: Download neovim binary
+      get_url:
+        url: "{{ neovim_url }}"
+        dest: "{{ tarbal_location }}"
+
+    - name: Remove existing installation
+      file:
+        path: "{{ install_dir }}"
+        state: absent
+    - name: extract to /opt
+      unarchive:
+        src: "{{ tarbal_location }}"
+        dest: "/opt"
+        remote_src: yes
+    - name: Update shell configuration (include nvim in PATH)
+      lineinfile:
+        path: "/home/{{ user }}/.zshrc"
+        line: 'export PATH="$PATH:/opt/nvim-linux64/bin"'
+        state: present
+    - name: Source updated shell configuration (only for current session)
+      shell: 'source /home/{{ user }}/.zshrc'
+      args:
+        executable: /bin/zsh
+      become_user: "{{ user }}"
