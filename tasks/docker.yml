@@ -84,3 +84,10 @@
         name: containerd
         enabled: yes
         state: started
+
+    - name: Install Lazydocker
+      shell: "curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash"
+      args:
+        executable: /bin/bash
+      become_user: "{{ user }}"
+
