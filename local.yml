@@ -15,5 +15,7 @@
   import_playbook: tasks/zsh.yml
 - name: Install Neovim
   import_playbook: tasks/nvim.yml
-- name: Install Docker
-  import_playbook: tasks/docker.yml
+# - name: Install Docker
+#   import_playbook: tasks/docker.yml
+- name: Install Dev stuff
+  import_playbook: tasks/dev_stuff.yml

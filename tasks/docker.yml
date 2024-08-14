@@ -91,3 +91,8 @@
         executable: /bin/bash
       become_user: "{{ user }}"
 
+    - name: Load local executables (makes them executable from terminal)
+      lineinfile:
+        path: "/home/{{ user }}/.zshrc"
+        line: 'export PATH="$HOME/.local/bin:$PATH"'
+        state: present

@@ -1,0 +1,11 @@
+- name: Install Docker
+  hosts: localhost
+  become: yes
+  vars:
+      user: stijn
+  tasks:
+    - name: Install nvm (Node version manager)
+      ansible.builtin.shell: >
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+      args:
+        creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
