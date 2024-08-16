@@ -10,12 +10,18 @@
   tasks:
     - name: Include packages
       include_tasks: tasks/packages.yml
+    - name: Install nvm (Node version manager)
+      ansible.builtin.shell: >
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+      args:
+        creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+
 
 - name: Include Zsh setup
   import_playbook: tasks/zsh.yml
 - name: Install Neovim
   import_playbook: tasks/nvim.yml
-# - name: Install Docker
-#   import_playbook: tasks/docker.yml
+- name: Install Docker
+  import_playbook: tasks/docker.yml
 - name: Install Dev stuff
   import_playbook: tasks/dev_stuff.yml
