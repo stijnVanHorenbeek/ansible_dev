@@ -9,10 +9,12 @@
       user:
         name: "{{ user }}"
         shell: /bin/zsh
-    - name: Install nvm (Node version manager)
-      ansible.builtin.shell: >
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | zsh
+    - name: Source updated shell configuration (only for current session)
+      become_user: "{{ user }}"
+      shell: >
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh 
       args:
+        executable: /bin/zsh
         creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
 
     - name: Ensure keyring directory exists
