@@ -9,13 +9,28 @@
       user:
         name: "{{ user }}"
         shell: /bin/zsh
-    - name: Source updated shell configuration (only for current session)
+    - name: NVM directory check
+      stat:
+        path: "/home/{{ user }}/.nvm"
+      register: nvm_dir
+      become: yes
       become_user: "{{ user }}"
+    - name: Install Node Version Manager
+      become_user: "{{ user }}"
+      when: not nvm_dir.stat.exists
       shell: >
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash 
       args:
         executable: /bin/zsh
         creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+    - name: Install Node
+      become: yes
+      become_user: "{{ user }}"
+      when: not nvm_dir.stat.exists
+      shell: |
+        nvm node install
+      args:
+        executable: /bin/zsh
 
     - name: Ensure keyring directory exists
       file:
