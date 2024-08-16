@@ -28,7 +28,7 @@
       become_user: "{{ user }}"
       when: not nvm_dir.stat.exists
       shell: |
-        nvm install node
+        source {{ ansible_env.HOME }}/.zshrc && nvm install node
       args:
         executable: /bin/zsh
 
