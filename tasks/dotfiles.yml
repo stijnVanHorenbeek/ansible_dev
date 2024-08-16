@@ -7,7 +7,7 @@
   tasks:
     - name: Clone nvim dotfiles
       git:
-        repo: {{ nvim_repo }}
+        repo: "{{ nvim_repo }}"
         dest: "/home/{{ user }}/.config/nvim"
         version: "main"
         force: yes
