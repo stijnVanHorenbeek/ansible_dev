@@ -23,9 +23,13 @@
         dest: "/opt"
         remote_src: yes
     - name: Update shell configuration (include nvim in PATH)
-      lineinfile:
+      blockinfile:
         path: "/home/{{ user }}/.zshrc"
-        line: 'export PATH="$PATH:/opt/nvim-linux64/bin"'
+        block: |
+          # Nvim Config
+          export PATH="$PATH:/opt/nvim-linux64/bin"
+          alias vi=nvim
+          alias vim=nvim
         state: present
     - name: Source updated shell configuration (only for current session)
       shell: 'source /home/{{ user }}/.zshrc'
