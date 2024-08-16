@@ -28,7 +28,7 @@
       become_user: "{{ user }}"
       when: not nvm_dir.stat.exists
       shell: |
-        nvm node install
+        nvm install node
       args:
         executable: /bin/zsh
 
