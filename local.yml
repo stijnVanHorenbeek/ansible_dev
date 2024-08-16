@@ -25,3 +25,5 @@
   import_playbook: tasks/docker.yml
 - name: Install Dev stuff
   import_playbook: tasks/dev_stuff.yml
+- name: put them dotfiles in place
+  import_playbook: tasks/dotfiles.yml
