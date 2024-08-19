@@ -40,3 +40,10 @@
         ZSH: "/home/{{ user }}/.oh-my-zsh"
       args:
         executable: /bin/zsh
+
+
+    - name: set browser variable
+      lineinfile:
+        path: "/home/{{ user }}/.zshrc"
+        line: 'export BROWSER=wslview'
+        state: present

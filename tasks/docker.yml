@@ -96,3 +96,9 @@
         path: "/home/{{ user }}/.zshrc"
         line: 'export PATH="$HOME/.local/bin:$PATH"'
         state: present
+
+    - name: lazydocker alias
+      lineinfile:
+        path: "/home/{{ user }}/.zshrc"
+        line: 'alias lzd=lazydocker'
+        state: present

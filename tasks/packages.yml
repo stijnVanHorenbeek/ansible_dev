@@ -11,4 +11,6 @@
       - ripgrep
       - fzf
       - xclip
+      - wslu
+      - tree
 
