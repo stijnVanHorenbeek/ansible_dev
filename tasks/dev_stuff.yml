@@ -59,3 +59,8 @@
         name: gh
         state: present
 
+    - name: git editor
+      lineinfile:
+        path: "/home/{{ user }}/.zshrc"
+        line: 'export GIT_EDITOR=nvim'
+        state: present
