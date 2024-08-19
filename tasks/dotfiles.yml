@@ -28,7 +28,7 @@
       git:
         repo: "{{ tmux_dot_repo }}"
         dest: "/home/{{ user }}/.config/tmux"
-        version: "master"
+        version: "main"
         force: yes
       become: yes
       become_user: "{{ user }}"
