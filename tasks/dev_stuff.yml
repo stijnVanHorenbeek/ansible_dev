@@ -1,4 +1,4 @@
-- name: Install Docker
+- name: Install some dev stuff
   hosts: localhost
   become: yes
   vars:
