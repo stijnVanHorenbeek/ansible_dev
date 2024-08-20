@@ -52,5 +52,5 @@
     - name: tmux-session script to <C-f>
       lineinfile:
         path: "/home/{{ user }}/.zshrc"
-        line: 'bindkey -s ^f "tmux-session\n"'
+        line: 'bindkey -s "^[f" "tmux-session\n"'
         state: present
