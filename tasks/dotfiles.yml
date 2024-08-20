@@ -32,3 +32,20 @@
         force: yes
       become: yes
       become_user: "{{ user }}"
+
+    - name: ensure local bin directory exists
+      file:
+        path: "/home/{{ user }}/.local/bin"
+        state: directory
+        mode: '0755'
+      become: yes
+      become_user: "{{ user }}"
+
+    - name: Move tmux session script to .local/bin
+      copy:
+        src: "/home/{{ user }}/.config/tmux/tmux-session"
+        dest: "/home/{{ user }}/.local/bin/tmux-session"
+        mode: '0755'
+      become: yes
+      become_user: "{{ user }}"
+
