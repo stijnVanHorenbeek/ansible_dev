@@ -49,7 +49,7 @@
       become: yes
       become_user: "{{ user }}"
 
-    - name: tmux-session script to <C-f>
+    - name: tmux-session script to <Alt-f>
       lineinfile:
         path: "/home/{{ user }}/.zshrc"
         line: 'bindkey -s "^[f" "tmux-session\n"'
